@@ -1,11 +1,14 @@
-import ArticlesPreview from '../components/ArticlesPreview';
-import Introduction from '../components/Introduction';
-import Hero from '../components/Hero';
+// app/page.tsx
+import Hero from '../components/Hero'
+import TopQuestions from '../components/TopQuestions'
+import NewsSection from '../components/NewsSection'
 
 export default function HomePage() {
   return (
-    <>
-      <Introduction />
-    </>
-  );
+    <div className="space-y-16 max-w-6xl mx-auto px-4 pt-8">
+      <Hero />
+      <TopQuestions />
+      <NewsSection />
+    </div>
+  )
 }

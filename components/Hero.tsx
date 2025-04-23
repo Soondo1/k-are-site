@@ -1,18 +1,38 @@
-// 6. components/Hero.tsx
+// components/Hero.tsx
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+
 export default function Hero() {
   return (
-    <section className="flex flex-col items-center p-8 mb-12 text-white bg-darkBlue rounded-2xl md:flex-row">
-      <div className="flex-1 mb-6 md:mb-0">
-        <h2 className="mb-4 text-4xl font-bold">Foreigner’s Guide to Korea</h2>
-        <p className="mb-6">Helping you navigate the Korean healthcare system</p>
-        <button className="px-6 py-3 font-medium rounded-full bg-blue hover:bg-mediumBlue">
+    <section className="bg-darkBlue rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8">
+      {/* Left side text */}
+      <div className="flex-1 text-center md:text-left space-y-4">
+        <h2 className="inline-block bg-white text-darkBlue text-3xl md:text-4xl font-bold px-4 py-2 rounded-r-full">
+          Foreigner’s Guide to Korea
+        </h2>
+        <p className="text-lg text-white/90">
+          Helping you navigate the Korean healthcare system
+        </p>
+        <Link
+          href="#introduction"
+          className="inline-block bg-blue text-white px-6 py-2 rounded-full hover:bg-mediumBlue"
+        >
           View
-        </button>
+        </Link>
       </div>
-      <div className="flex-1">
-        {/* Replace with actual book illustration image */}
-        <div className="w-full h-48 bg-gradient-to-r from-blue to-lightBlue rounded-xl"></div>
+
+      {/* Right side image */}
+      <div className="flex-1 max-w-md">
+        <Image
+          src="/illustration.png"
+          alt="Guide illustration"
+          width={600}
+          height={400}
+          className="w-full h-auto"
+        />
       </div>
     </section>
-  );
+  )
 }

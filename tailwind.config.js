@@ -1,34 +1,26 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-
-// 1. tailwind.config.js
-module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './styles/**/*.{css}',
-    './content/articles/**/*.md'
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        lightBlue: '#DCEBFF',
-        blue: '#B5CEFF',
-        mediumBlue: '#8DA7E9',
-        darkBlue: '#132A50',
-        lavender: '#E2D9FF',
-        midLavender: '#C1B3FF'
+        // from your Figma design system
+        lightBlue:  "#DCEBFF",  // pale background on cards
+        blue:       "#B5CEFF",  // primary button/illustration accent
+        mediumBlue: "#8DA7E9",  // headings & interactive hover
+        darkBlue:   "#132A50",  // main nav & card bg
+
+        // extra pastel for Top Questions panel
+        lavender:   "#E2D7FF"
       },
       fontFamily: {
-        sans: ['Roboto','sans-serif'],
-      }
-    }
+        sans: ["Roboto", "sans-serif"],
+      },
+    },
   },
-  plugins: []
-};
+  plugins: [],
+}

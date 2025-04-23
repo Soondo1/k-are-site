@@ -1,18 +1,14 @@
-/**
- * This route is responsible for the built-in authoring environment using Sanity Studio.
- * All routes under your studio path is handled by this file using Next.js' catch-all routes:
- * https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
- *
- * You can learn more about the next-sanity package here:
- * https://github.com/sanity-io/next-sanity
- */
+// app/studio/[[...tool]]/page.tsx
+'use client'
 
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../sanity.config'
 
-export const dynamic = 'force-static'
+// 1) Force this page to be dynamically rendered at runtime
+export const dynamic = 'force-dynamic'
 
-export { metadata, viewport } from 'next-sanity/studio'
+// 2) Disable any caching or revalidation
+export const revalidate = 0
 
 export default function StudioPage() {
   return <NextStudio config={config} />

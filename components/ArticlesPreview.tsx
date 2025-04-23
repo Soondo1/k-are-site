@@ -28,7 +28,7 @@ export default function ArticlesPreview() {
             <Link
               href={`/articles/${slug}`}
               className="text-mediumBlue hover:underline"
-            >
+              legacyBehavior>
               {title}
             </Link>
           </li>
@@ -43,5 +43,5 @@ export default function ArticlesPreview() {
         </Link>
       </div>
     </section>
-  )
+  );
 }
