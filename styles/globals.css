@@ -2,18 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/* Roboto font is now handled by next/font in the layout.tsx file */
 
-html,
 body {
-  font-family: "Roboto", sans-serif !important;
+  @apply text-darkBlue bg-white;
 }
 
+/* General link styles */
+a {
+  @apply transition-colors;
+}
+
+/* Add custom styles for specific components here */
+.gradient-bg {
+  @apply bg-gradient-to-r from-blue to-lightBlue;
+}
+
+/* Navigation styles */
 nav a {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
+  @apply transition-all duration-200;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  @apply text-darkBlue;
+}
+
+nav a.active {
+  @apply border-b-2 border-mediumBlue text-darkBlue;
 }

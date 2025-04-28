@@ -26,10 +26,12 @@ export default async function ArticlesPage() {
       <ul className="space-y-8">
         {posts.map(({ slug, title, summary }) => (
           <li key={slug} className="p-6 transition rounded-lg bg-lightBlue hover:shadow-lg">
-            <Link href={`/articles/${slug}`} className="block" legacyBehavior>
-              <h2 className="text-2xl font-semibold text-darkBlue hover:underline">{title}</h2>
-              <p className="mt-2 text-gray-700">{summary}</p>
-            </Link>
+            <Link href={`/articles/${slug}`}>
+  <div className="block">
+    <h2 className="text-2xl font-semibold text-darkBlue hover:underline">{title}</h2>
+    <p className="mt-2 text-gray-700">{summary}</p>
+  </div>
+</Link>
           </li>
         ))}
       </ul>

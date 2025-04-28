@@ -1,40 +1,35 @@
 // components/TopQuestions.tsx
-'use client'
-
-const faqs = [
-  {
-    q: 'What documentation do I need to bring to the hospital?',
-    a: 'You’ll need your ARC, passport, proof of residence, and insurance card when visiting most clinics.'
-  },
-  {
-    q: 'How do I register for health insurance?',
-    a: 'Visit your local NHIS branch with your ARC and proof of residence to enroll in the National Health Insurance scheme.'
-  },
-  {
-    q: 'Can I get emergency care without insurance?',
-    a: 'Yes — emergency treatment is available, but you will be billed at full cost unless you have prior coverage.'
-  },
-]
+import Link from 'next/link';
 
 export default function TopQuestions() {
+  const questions = [
+    'What documentation do I need to bring to the hospital?',
+    'What documentation do I need to bring to the hospital?',
+    'What documentation do I need to bring to the hospital?',
+    'What documentation do I need to bring to the hospital?',
+    'What documentation do I need to bring to the hospital?'
+  ];
+  
   return (
-    <section id="top-questions" className="bg-blue/20 p-8 rounded-2xl">
-      <h3 className="text-2xl font-semibold text-darkBlue mb-6">
+    <section className="p-6 rounded-lg bg-lavender">
+      <h3 className="mb-6 text-2xl font-semibold text-center text-darkBlue">
         Top Questions
       </h3>
-      <div className="space-y-4">
-        {faqs.map(({ q, a }, i) => (
-          <details
-            key={i}
-            className="bg-white p-4 rounded-lg shadow-sm"
-          >
-            <summary className="cursor-pointer font-medium text-mediumBlue">
-              {q}
-            </summary>
-            <p className="mt-2 text-gray-700">{a}</p>
-          </details>
+      <ol className="space-y-3">
+        {questions.map((question, index) => (
+          <li key={index} className="flex">
+            <span className="inline-block w-6 font-semibold text-mediumBlue">
+              {index + 1}.
+            </span>
+            <Link 
+              href={`/faq/${index + 1}`} 
+              className="text-gray-700 hover:underline hover:text-darkBlue"
+            >
+              {question}
+            </Link>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
-  )
+  );
 }
