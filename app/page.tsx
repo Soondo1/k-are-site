@@ -1,4 +1,5 @@
 // app/page.tsx
+import GuideCard from '../components/GuideCard';
 import Hero from '../components/Hero';
 import TopQuestions from '../components/TopQuestions';
 import NewsSection from '../components/NewsSection';

@@ -1,52 +1,99 @@
-// components/NewsSection.tsx
+// app/components/NewsSection.tsx
 import Link from 'next/link';
 import Image from 'next/image';
+import { format } from 'date-fns';
+import { client } from '../lib/sanity';
+import { urlForImage } from '../lib/sanity.image';
 
-export default function NewsSection() {
-  const news = [
-    { 
-      id: 1,
-      title: 'News Article Title Number One ##', 
-      image: '/images/news1.jpg',
-      slug: 'news-article-1'
-    },
-    { 
-      id: 2,
-      title: 'News Article Title Number One ##', 
-      image: '/images/news2.jpg',
-      slug: 'news-article-2'
-    },
-    { 
-      id: 3,
-      title: 'News Article Title Number One ##', 
-      image: '/images/news3.jpg',
-      slug: 'news-article-3'
+type Article = {
+  _id: string;
+  title: string;
+  slug: string;
+  publishedAt: string;
+  summary: string;
+  mainImage?: {
+    asset: {
+      _ref: string;
+    };
+    alt?: string;
+  };
+};
+
+async function getLatestArticles() {
+  return await client.fetch(`
+    *[_type == "article"] | order(publishedAt desc)[0...3] {
+      _id,
+      title,
+      "slug": slug.current,
+      publishedAt,
+      summary,
+      mainImage
     }
-  ];
-  
+  `);
+}
+
+export default async function NewsSection() {
+  const articles = await getLatestArticles() as Article[];
+
   return (
-    <section className="my-12">
-      <h2 className="mb-6 text-2xl font-bold">Recent News</h2>
-      
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {news.map((article) => (
-          <Link href={`/news/${article.slug}`} key={article.id}>
-            <div className="relative overflow-hidden transition-all rounded-lg h-52 group hover:shadow-lg">
-              <div className="absolute inset-0 bg-gray-800">
-                {/* Fallback if image doesn't load */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
-              </div>
+    <div className="w-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-blue-900">Latest Articles</h2>
+        <Link 
+          href="/blog" 
+          className="text-blue-600 hover:text-blue-800 font-medium"
+        >
+          View all →
+        </Link>
+      </div>
+
+      {articles.length > 0 ? (
+        <div className="grid gap-8 md:grid-cols-3">
+          {articles.map((article) => (
+            <div key={article._id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              {article.mainImage && (
+                <div className="relative w-full h-40">
+                  <Image
+                    src={urlForImage(article.mainImage) || '/images/placeholder.jpg'}
+                    alt={article.mainImage.alt || article.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
               
-              {/* We'll use a div for now since we don't have actual images */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70" />
-              
-              <div className="absolute bottom-0 w-full p-4">
-                <h3 className="text-xl font-bold text-white">{article.title}</h3>
+              <div className="p-4">
+                <div className="text-sm text-gray-500 mb-2">
+                  {article.publishedAt ? (
+                    format(new Date(article.publishedAt), 'MMM d, yyyy')
+                  ) : 'Date unavailable'}
+                </div>
+                
+                <Link href={`/blog/${article.slug}`}>
+                  <h3 className="font-semibold text-lg mb-2 text-blue-800 hover:text-blue-600 line-clamp-2">
+                    {article.title}
+                  </h3>
+                </Link>
+                
+                <p className="text-gray-600 text-sm line-clamp-3 mb-3">
+                  {article.summary}
+                </p>
+                
+                <Link 
+                  href={`/blog/${article.slug}`}
+                  className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                >
+                  Read more →
+                </Link>
               </div>
             </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12 text-gray-500 border border-gray-200 rounded-lg">
+          <p>No articles available yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
   );
 }
